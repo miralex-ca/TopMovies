@@ -10,6 +10,7 @@ import com.muralex.topmovies.common.utils.Constants.DETAIL_SCREEN
 import com.muralex.topmovies.common.utils.Constants.LIST_ARGUMENT_KEY
 import com.muralex.topmovies.common.utils.Constants.LIST_SCREEN
 
+
 fun NavGraphBuilder.detailComposable(
     navigateToListScreen: (Constants.NaviAction) -> Unit
 ) {

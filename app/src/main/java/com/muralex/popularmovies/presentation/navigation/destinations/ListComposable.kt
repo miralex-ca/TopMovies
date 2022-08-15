@@ -5,6 +5,7 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.muralex.popularmovies.presentation.ui.screens.list.ListScreen
+import com.muralex.popularmovies.presentation.ui.viewmodel.SharedViewModel
 import com.muralex.topmovies.common.utils.Constants.LIST_ARGUMENT_KEY
 import com.muralex.topmovies.common.utils.Constants.LIST_SCREEN
 
@@ -17,8 +18,9 @@ fun NavGraphBuilder.listComposable(
             type = NavType.StringType
         })
     ) {
-        ListScreen(navigateToDetail = navigateToDetail)
+        ListScreen(
+            navigateToDetail = navigateToDetail,
+        )
     }
-
 
 }

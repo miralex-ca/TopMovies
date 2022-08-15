@@ -9,12 +9,14 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.muralex.popularmovies.presentation.navigation.destinations.detailComposable
 import com.muralex.popularmovies.presentation.navigation.destinations.listComposable
+import com.muralex.popularmovies.presentation.ui.viewmodel.SharedViewModel
 import com.muralex.topmovies.common.utils.Constants.LIST_SCREEN
 
 
 @Composable
 fun SetupNavigation(
-    navController: NavHostController
+    navController: NavHostController,
+    sharedViewModel: SharedViewModel
 ) {
 
     val screen = remember(navController) {

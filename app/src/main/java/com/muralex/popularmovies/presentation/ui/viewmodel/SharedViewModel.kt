@@ -11,6 +11,8 @@ import com.muralex.popularmovies.domain.usecases.GetMoviesUseCase
 import com.muralex.popularmovies.domain.usecases.UpdateMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -26,8 +28,8 @@ class SharedViewModel @Inject constructor(
         get() = _startRefresh
 
 
-    private var _viewState = mutableStateOf<ViewState>( ViewState.Loading )
-    val viewState: State<ViewState>
+    private var _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
+    val viewState: StateFlow<ViewState>
     get() = _viewState
 
 
