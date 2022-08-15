@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PopularMovies</string>
+
+
+    <string name="error_msg_service_error">Service error</string>
+    <string name="error_msg_connection_error">Connection error</string>
+    <string name="error_msg_request_error">Data not received</string>
+    <string name="error_msg_generic_error">Unexpected error</string>
+    <string name="news_empty_list_hint">You will see info here</string>
+    <string name="snackbar_close">CLOSE</string>
+    <string name="load_error_message">Unable to update films info \nError occurred: %s</string>
+
+</resources>
