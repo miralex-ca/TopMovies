@@ -1,13 +1,17 @@
 <resources>
-    <string name="app_name">PopularMovies</string>
-
-
+    <string name="app_name">Top Movies</string>
     <string name="error_msg_service_error">Service error</string>
-    <string name="error_msg_connection_error">Connection error</string>
+    <string name="error_msg_connection_error">Connection error. Check your network settings.</string>
     <string name="error_msg_request_error">Data not received</string>
     <string name="error_msg_generic_error">Unexpected error</string>
     <string name="news_empty_list_hint">You will see info here</string>
     <string name="snackbar_close">CLOSE</string>
     <string name="load_error_message">Unable to update films info \nError occurred: %s</string>
-
+    <string name="empty_list_text">Unable to load data</string>
+    <string name="detail_title"> </string>
+    <string name="rating">Rating: %s</string>
+    <string name="release_date">Release date: %s</string>
+    <string name="retry">Retry</string>
+    <string name="text_share">Share</string>
+    <string name="share_movie">Hey! Check this movie -  %s</string>
 </resources>

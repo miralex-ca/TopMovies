@@ -5,14 +5,15 @@ object Constants {
     const val ARTICLE_EXTRA = "selected_article"
     const val HOME_LIST_SIZE = 50
 
-    const val IMAGE_DIR = "https://image.tmdb.org/t/p/w500/"
+    const val IMAGE_DIR = "https://image.tmdb.org/t/p/w300/"
+    const val BIG_IMAGE_DIR = "https://image.tmdb.org/t/p/w500/"
 
     enum class DataErrors {CONNECTION, SERVER, REQUEST, GENERIC}
     const val DATA_FETCH_ERROR = "unknown_error"
 
     enum class Action {Click}
 
-    enum class NaviAction {DISPLAY}
+    enum class NaviAction {DISPLAY, SHARE}
 
     const val LIST_SCREEN = "list/{action}"
     const val DETAIL_SCREEN = "detail/{detailId}"

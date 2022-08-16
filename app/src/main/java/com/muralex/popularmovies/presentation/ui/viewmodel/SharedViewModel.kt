@@ -11,9 +11,12 @@ import com.muralex.popularmovies.domain.usecases.GetMoviesUseCase
 import com.muralex.popularmovies.domain.usecases.UpdateMoviesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.internal.EMPTY_RESPONSE
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -37,11 +40,14 @@ class SharedViewModel @Inject constructor(
         getData(GET_TYPE)
     }
 
-    fun updateNews() {
+    fun updateNews() = viewModelScope.launch {
+        _viewState.value = ViewState.Loading
+        delay(700)
         getData(UPDATE_TYPE)
     }
 
     private fun getData(type: Int) {
+
         _startRefresh = false
         viewModelScope.launch(Dispatchers.IO) {
             _viewState.value = ViewState.Loading
@@ -51,7 +57,7 @@ class SharedViewModel @Inject constructor(
                 when (response.status) {
                     Status.LOADING -> _viewState.value = ViewState.Loading
                     Status.ERROR -> {
-                        _viewState.value =  ViewState.ListLoadFailure(response)
+                        _viewState.value =  ViewState.ListLoadFailure(response.message.toString())
                     }
                     Status.SUCCESS -> {
                         if (type == GET_TYPE) _viewState.value =  ViewState.ListLoaded(response)
@@ -60,10 +66,29 @@ class SharedViewModel @Inject constructor(
                 }
             } catch (e: Exception) {
                 Timber.d(e, "Error fetching data from repository")
-                val resource = Resource.error(e.message.toString(), null)
-                _viewState.value =  ViewState.ListLoadFailure(resource)
+                _viewState.value =  ViewState.ListLoadFailure(e.message.toString())
             }
         }
+    }
+
+    private val _selectedArticle: MutableStateFlow<Article> = MutableStateFlow(
+        Article(0, "", "", "", "", "", "", 0.0)
+    )
+    val selectedArticle : StateFlow<Article> = _selectedArticle
+
+    fun getSelectedItem(itemId: Int) {
+
+        var list = emptyList<Article>()
+
+        if (_viewState.value is ViewState.ListLoaded) {
+            list = (_viewState.value as ViewState.ListLoaded).data.data ?: emptyList()
+        }
+
+        if (_viewState.value is ViewState.ListRefreshed) {
+            list = (_viewState.value as ViewState.ListRefreshed).data.data ?: emptyList()
+        }
+
+        _selectedArticle.value = list.first{ it.id == itemId}
     }
 
     private suspend fun getDataFromUseCase(type: Int): Resource<List<Article>> {
@@ -80,7 +105,7 @@ class SharedViewModel @Inject constructor(
         object Loading : ViewState()
         data class ListLoaded(val data: Resource<List<Article>>) : ViewState()
         data class ListRefreshed(val data: Resource<List<Article>>) : ViewState()
-        data class ListLoadFailure(val data: Resource<List<Article>>) : ViewState()
+        data class ListLoadFailure(val message: String) : ViewState()
     }
 
 }

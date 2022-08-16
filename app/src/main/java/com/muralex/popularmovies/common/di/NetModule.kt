@@ -1,5 +1,6 @@
 package com.muralex.popularmovies.common.di
 
+import com.muralex.popularmovies.BuildConfig
 import com.muralex.popularmovies.data.api.MoviesApiKeyInterceptor
 import com.muralex.popularmovies.data.api.MoviesApiService
 import dagger.Module
@@ -26,7 +27,7 @@ class NetModule {
 
     @Singleton
     @Provides
-    fun provideNewsApiKeyInterceptor() = MoviesApiKeyInterceptor("api_key", "adaf25bb200c1ac318d6410be8c2418e")
+    fun provideNewsApiKeyInterceptor() = MoviesApiKeyInterceptor("api_key", BuildConfig.API_KEY)
 
     @Singleton
     @Provides
@@ -50,7 +51,7 @@ class NetModule {
     fun provideApiService(clientHTTP: OkHttpClient): MoviesApiService {
         return Retrofit.Builder()
             .client(clientHTTP)
-            .baseUrl("https://api.themoviedb.org/3/")
+            .baseUrl(BuildConfig.BASE_URL)
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
             .create(MoviesApiService::class.java)

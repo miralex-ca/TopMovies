@@ -1,5 +1,6 @@
 package com.muralex.popularmovies.presentation.navigation
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 
@@ -12,7 +13,7 @@ import com.muralex.popularmovies.presentation.navigation.destinations.listCompos
 import com.muralex.popularmovies.presentation.ui.viewmodel.SharedViewModel
 import com.muralex.topmovies.common.utils.Constants.LIST_SCREEN
 
-
+@ExperimentalMaterialApi
 @Composable
 fun SetupNavigation(
     navController: NavHostController,
@@ -25,9 +26,11 @@ fun SetupNavigation(
 
     NavHost(navController = navController, startDestination = LIST_SCREEN) {
         listComposable(
-            navigateToDetail = screen.detail
+            navigateToDetail = screen.detail,
+            sharedViewModel = sharedViewModel
         )
         detailComposable(
+            sharedViewModel = sharedViewModel,
             navigateToListScreen = screen.list
         )
     }

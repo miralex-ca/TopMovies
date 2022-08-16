@@ -1,5 +1,6 @@
 package com.muralex.popularmovies.presentation.navigation.destinations
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavType
 import androidx.navigation.compose.composable
@@ -9,8 +10,10 @@ import com.muralex.popularmovies.presentation.ui.viewmodel.SharedViewModel
 import com.muralex.topmovies.common.utils.Constants.LIST_ARGUMENT_KEY
 import com.muralex.topmovies.common.utils.Constants.LIST_SCREEN
 
+@ExperimentalMaterialApi
 fun NavGraphBuilder.listComposable(
-    navigateToDetail: (Int) -> Unit
+    navigateToDetail: (Int) -> Unit,
+    sharedViewModel: SharedViewModel
 ) {
     composable(
         route = LIST_SCREEN,
@@ -20,6 +23,7 @@ fun NavGraphBuilder.listComposable(
     ) {
         ListScreen(
             navigateToDetail = navigateToDetail,
+            sharedViewModel = sharedViewModel
         )
     }
 
