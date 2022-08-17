@@ -1,7 +1,5 @@
 package com.muralex.popularmovies.presentation.ui.viewmodel
 
-import androidx.compose.runtime.State
-import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muralex.popularmovies.common.data.Resource
@@ -15,8 +13,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-import okhttp3.internal.EMPTY_RESPONSE
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -30,28 +26,23 @@ class SharedViewModel @Inject constructor(
     val startRefresh: Boolean
         get() = _startRefresh
 
-
     private var _viewState = MutableStateFlow<ViewState>(ViewState.Loading)
     val viewState: StateFlow<ViewState>
     get() = _viewState
 
-
-    fun getNews() {
+    fun getArticles() {
         getData(GET_TYPE)
     }
 
-    fun updateNews() = viewModelScope.launch {
-        _viewState.value = ViewState.Loading
-        delay(700)
+    fun updateArticles() {
         getData(UPDATE_TYPE)
     }
 
     private fun getData(type: Int) {
-
         _startRefresh = false
         viewModelScope.launch(Dispatchers.IO) {
             _viewState.value = ViewState.Loading
-
+            if (type == UPDATE_TYPE) delay(700)
             try {
                 val response = getDataFromUseCase(type)
                 when (response.status) {

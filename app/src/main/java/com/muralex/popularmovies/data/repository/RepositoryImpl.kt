@@ -38,5 +38,4 @@ class RepositoryImpl(
         return articles
     }
 
-
 }

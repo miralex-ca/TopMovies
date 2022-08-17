@@ -13,10 +13,8 @@ class App : Application() {
         super.onCreate()
 
         if (BuildConfig.DEBUG) {
-
+            Timber.plant(Timber.DebugTree())
         }
-
-        Timber.plant(Timber.DebugTree())
 
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
     }

@@ -7,6 +7,7 @@ import androidx.compose.material.rememberScaffoldState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.rememberCoroutineScope
 import com.muralex.popularmovies.presentation.ui.viewmodel.SharedViewModel
 import kotlinx.coroutines.delay
 
@@ -20,11 +21,12 @@ fun ListScreen(
 
     LaunchedEffect(key1 = true) {
         delay(700)
-        sharedViewModel.getNews()
+        sharedViewModel.getArticles()
     }
 
     val state = sharedViewModel.viewState.collectAsState()
     val scaffoldState = rememberScaffoldState()
+
 
     Scaffold(
         scaffoldState = scaffoldState,
@@ -36,7 +38,7 @@ fun ListScreen(
                 articlesList = state.value,
                 navigateToDetail,
                 scaffoldState
-            ) { sharedViewModel.updateNews() }
+            ) { sharedViewModel.updateArticles() }
         }
     )
 }
